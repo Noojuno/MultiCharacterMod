@@ -48,7 +48,8 @@ public class MultiCharacterAPI
         }
     }
 
-    public static List<IMultiCharacterIntegration> getIntegrations() {
+    public static List<IMultiCharacterIntegration> getIntegrations()
+    {
         return modIntegrations;
     }
 }

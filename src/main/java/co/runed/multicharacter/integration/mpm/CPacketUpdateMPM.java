@@ -1,7 +1,5 @@
 package co.runed.multicharacter.integration.mpm;
 
-import co.runed.multicharacter.network.PacketDispatcher;
-import co.runed.multicharacter.network.packets.SPacketSaveCharacters;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
@@ -20,7 +18,8 @@ public class CPacketUpdateMPM implements IMessage
 
     }
 
-    public CPacketUpdateMPM(ModelData data) {
+    public CPacketUpdateMPM(ModelData data)
+    {
         this.modelData = data;
     }
 

@@ -1,11 +1,7 @@
 package co.runed.multicharacter.integration.mpm;
 
 import co.runed.multicharacter.MultiCharacterMod;
-import co.runed.multicharacter.character.CharacterManager;
-import co.runed.multicharacter.network.PacketDispatcher;
-import co.runed.multicharacter.network.packets.SPacketSaveCharacters;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -22,7 +18,8 @@ public class SPacketSaveMPM implements IMessage
 
     }
 
-    public SPacketSaveMPM(ModelData data) {
+    public SPacketSaveMPM(ModelData data)
+    {
         this.modelData = data;
     }
 

@@ -19,8 +19,9 @@ public class CharacterManager
     /**
      * Sets character at a specific index
      * Used for character editing
-     * @param player The player
-     * @param index Index
+     *
+     * @param player    The player
+     * @param index     Index
      * @param character The character
      */
     public void setCharacter(EntityPlayer player, int index, Character character)

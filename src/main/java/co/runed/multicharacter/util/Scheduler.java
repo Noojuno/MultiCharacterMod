@@ -11,7 +11,7 @@ public class Scheduler
     /**
      * Schedules a task to run after a defined delay
      *
-     * @param task Task to run
+     * @param task  Task to run
      * @param delay Delay in ms
      */
     public static void run(Runnable task, int delay)

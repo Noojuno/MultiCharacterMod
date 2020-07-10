@@ -5,7 +5,6 @@ import co.runed.multicharacter.api.MultiCharacterAPI;
 import co.runed.multicharacter.client.ModKeys;
 import co.runed.multicharacter.events.client.ClientGuiEventHandler;
 import co.runed.multicharacter.events.client.ClientInputEventHandler;
-import net.minecraft.client.resources.I18n;
 import net.minecraftforge.common.MinecraftForge;
 
 public class ClientProxy extends CommonProxy

@@ -147,7 +147,7 @@ public class MinecraftIntegration implements IMultiCharacterIntegration
         File charFile = new File(characterDirectory, "characters.dat");
 
         // BACKUP OLD CHARACTERS.DAT BEFORE SAVING
-        if(charFile.exists())
+        if (charFile.exists())
         {
             charFile.renameTo(new File(characterDirectory, "characters_old.dat"));
         }
@@ -184,7 +184,8 @@ public class MinecraftIntegration implements IMultiCharacterIntegration
         playerNbt.setUniqueId("UUID", player.getUniqueID());
 
         // IF THIS IS THE FIRST CHARACTER A PLAYER CREATES, SET CHARACTER NBT TO PLAYER NBT
-        if (MultiCharacterMod.getCharacterManager().getCharacters(player).size() <= 1) {
+        if (MultiCharacterMod.getCharacterManager().getCharacters(player).size() <= 1)
+        {
             File playerDat = this.getExistingPlayerDatFile(player);
 
             try
@@ -220,7 +221,8 @@ public class MinecraftIntegration implements IMultiCharacterIntegration
 
     }
 
-    private File getExistingPlayerDatFile(EntityPlayer player) {
+    private File getExistingPlayerDatFile(EntityPlayer player)
+    {
         File playerDirectory = new File(player.world.getSaveHandler().getWorldDirectory(), "playerdata");
         File playerDat = new File(playerDirectory, player.getUniqueID().toString() + ".dat");
 

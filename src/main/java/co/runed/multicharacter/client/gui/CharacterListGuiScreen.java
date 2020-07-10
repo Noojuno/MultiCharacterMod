@@ -92,7 +92,7 @@ public class CharacterListGuiScreen extends GuiScreen
     {
         Keyboard.enableRepeatEvents(false);
 
-        if(!this.creatingCharacter && !this.deletingCharacter && !this.editingCharacter)
+        if (!this.creatingCharacter && !this.deletingCharacter && !this.editingCharacter)
         {
             PacketDispatcher.sendToServer(new SPacketSelectCharacter(this.closeState == 0 ? -1 : this.characters.indexOf(this.selectedCharacter)));
         }

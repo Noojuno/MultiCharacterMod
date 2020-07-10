@@ -3,7 +3,6 @@ package co.runed.multicharacter.integration.mpm;
 import co.runed.multicharacter.MultiCharacterMod;
 import co.runed.multicharacter.character.Character;
 import co.runed.multicharacter.network.PacketDispatcher;
-import co.runed.multicharacter.network.packets.SPacketSaveCharacters;
 import co.runed.multicharacter.util.Scheduler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -11,7 +10,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import noppes.mpm.ModelData;
-import noppes.mpm.MorePlayerModels;
 import noppes.mpm.Server;
 import noppes.mpm.client.Client;
 import noppes.mpm.client.ClientProxy;
@@ -32,10 +30,11 @@ public class MPMUtil
         data.player = player;
         data.save();
 
-        if (player instanceof EntityPlayerMP) {
+        if (player instanceof EntityPlayerMP)
+        {
             Character character = MultiCharacterMod.getCharacterManager().getActiveCharacter(player);
 
-            if(character != null)
+            if (character != null)
             {
                 NBTTagCompound nbt = character.getNbt();
                 nbt.setTag(MPMIntegration.NBT_DATA_KEY, data.writeToNBT());

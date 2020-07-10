@@ -4,8 +4,6 @@ import co.runed.multicharacter.MultiCharacterMod;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import java.io.File;
-
 public class PlayerIOEventHandler
 {
     @SubscribeEvent

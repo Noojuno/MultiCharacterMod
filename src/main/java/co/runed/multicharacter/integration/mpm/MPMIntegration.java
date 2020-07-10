@@ -4,23 +4,12 @@ import co.runed.multicharacter.MultiCharacterMod;
 import co.runed.multicharacter.api.IMultiCharacterIntegration;
 import co.runed.multicharacter.character.Character;
 import co.runed.multicharacter.character.CharacterManager;
-import co.runed.multicharacter.events.client.ClientInputEventHandler;
 import co.runed.multicharacter.network.PacketDispatcher;
-import co.runed.multicharacter.util.Scheduler;
-import io.netty.buffer.ByteBuf;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import net.minecraftforge.fml.relauncher.Side;
-import noppes.mpm.LogWriter;
 import noppes.mpm.ModelData;
-import noppes.mpm.Server;
-import noppes.mpm.constants.EnumPackets;
 
 public class MPMIntegration implements IMultiCharacterIntegration
 {

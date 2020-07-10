@@ -12,7 +12,7 @@ public class CharacterLoadingTeleporter implements ITeleporter
     {
         if (entity instanceof EntityPlayerMP)
         {
-            ((EntityPlayerMP)entity).connection.setPlayerLocation(entity.posX, entity.posY, entity.posZ, entity.rotationYaw, entity.rotationPitch);
+            ((EntityPlayerMP) entity).connection.setPlayerLocation(entity.posX, entity.posY, entity.posZ, entity.rotationYaw, entity.rotationPitch);
         }
         else
         {

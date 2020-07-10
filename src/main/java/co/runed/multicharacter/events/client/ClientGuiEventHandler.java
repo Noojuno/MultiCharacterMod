@@ -1,13 +1,8 @@
 package co.runed.multicharacter.events.client;
 
-import co.runed.multicharacter.integration.mpm.CPacketUpdateMPM;
-import co.runed.multicharacter.integration.mpm.MPMUtil;
 import co.runed.multicharacter.integration.mpm.SPacketSaveMPM;
 import co.runed.multicharacter.network.PacketDispatcher;
 import co.runed.multicharacter.network.packets.SPacketOpenCharacterGui;
-import co.runed.multicharacter.network.packets.SPacketSaveCharacters;
-import co.runed.multicharacter.util.Scheduler;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiDownloadTerrain;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.client.event.GuiOpenEvent;
