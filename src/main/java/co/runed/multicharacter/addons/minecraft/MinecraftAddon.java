@@ -184,12 +184,19 @@ public class MinecraftAddon extends Addon
 
             try
             {
-                playerNbt = CompressedStreamTools.readCompressed(new FileInputStream(playerDat));
+                NBTTagCompound existingNbt = CompressedStreamTools.readCompressed(new FileInputStream(playerDat));
+                int gameMode = existingNbt.hasKey("playerGameType") ? existingNbt.getInteger("playerGameType") : 0;
+
+                if (gameMode != -1 && gameMode != 3) {
+                    playerNbt = existingNbt;
+                }
             }
             catch (IOException e)
             {
                 e.printStackTrace();
             }
+
+            playerNbt.setInteger("playerGameType", FMLCommonHandler.instance().getMinecraftServerInstance().getGameType().getID());
         }
 
         nbt.setTag(PLAYER_DATA_NBT_KEY, playerNbt);
