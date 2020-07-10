@@ -1,0 +1,20 @@
+[
+  {
+    "modid": "multicharacter",
+    "name": "Multi Character",
+    "description": "Adds multiple character support",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "",
+    "updateUrl": "",
+    "authorList": [
+      "Noojuno"
+    ],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [
+    ],
+    "dependencies": [
+    ]
+  }
+]
