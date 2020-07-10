@@ -35,9 +35,12 @@ public class MPMUtil
         if (player instanceof EntityPlayerMP) {
             Character character = MultiCharacterMod.getCharacterManager().getActiveCharacter(player);
 
-            NBTTagCompound nbt = character.getNbt();
-            nbt.setTag(MPMIntegration.NBT_DATA_KEY, data.writeToNBT());
-            character.setNbt(nbt);
+            if(character != null)
+            {
+                NBTTagCompound nbt = character.getNbt();
+                nbt.setTag(MPMIntegration.NBT_DATA_KEY, data.writeToNBT());
+                character.setNbt(nbt);
+            }
         }
 
         Scheduler.run(() -> syncModelData(player, data), 100);

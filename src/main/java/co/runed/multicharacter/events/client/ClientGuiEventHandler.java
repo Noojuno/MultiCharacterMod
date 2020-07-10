@@ -38,6 +38,7 @@ public class ClientGuiEventHandler
                 PacketDispatcher.sendToServer(new SPacketOpenCharacterGui());
             }
 
+            // TODO: MOVE TO MPM INTEGRATION
             if (previousGui != null && previousGui.getClass() == GuiMPM.class)
             {
                 PacketDispatcher.sendToServer(new SPacketSaveMPM(((GuiMPM) previousGui).playerdata));
