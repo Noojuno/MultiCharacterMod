@@ -1,32 +1,28 @@
-package co.runed.multicharacter.integration.mpm;
+package co.runed.multicharacter.addons.mpm;
 
 import co.runed.multicharacter.MultiCharacterMod;
-import co.runed.multicharacter.api.IMultiCharacterIntegration;
+import co.runed.multicharacter.addons.mpm.packets.CPacketUpdateMPM;
+import co.runed.multicharacter.addons.mpm.packets.SPacketSaveMPM;
+import co.runed.multicharacter.api.Addon;
 import co.runed.multicharacter.character.Character;
 import co.runed.multicharacter.character.CharacterManager;
 import co.runed.multicharacter.network.PacketDispatcher;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.relauncher.Side;
 import noppes.mpm.ModelData;
 
-public class MPMIntegration implements IMultiCharacterIntegration
+public class MPMAddon extends Addon
 {
     public static final String NBT_DATA_KEY = "MorePlayerModels";
 
     @Override
     public void init()
     {
+        this.setClientAddon(new MPMClientAddon());
+
         PacketDispatcher.registerPacket(CPacketUpdateMPM.Handler.class, CPacketUpdateMPM.class, Side.CLIENT);
         PacketDispatcher.registerPacket(SPacketSaveMPM.Handler.class, SPacketSaveMPM.class, Side.SERVER);
-
-        MinecraftForge.EVENT_BUS.register(this);
-    }
-
-    @Override
-    public void clientInit()
-    {
     }
 
     @Override

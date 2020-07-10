@@ -3,11 +3,13 @@ package co.runed.multicharacter.api;
 import co.runed.multicharacter.character.Character;
 import net.minecraft.entity.player.EntityPlayer;
 
-public interface IMultiCharacterIntegration
+public interface IAddon
 {
     void init();
 
-    void clientInit();
+    IClientAddon getClientAddon();
+
+    void setClientAddon(IClientAddon clientAddon);
 
     /**
      * Runs before a players characters are loaded

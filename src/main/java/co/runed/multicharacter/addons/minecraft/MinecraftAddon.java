@@ -1,7 +1,7 @@
-package co.runed.multicharacter.integration.minecraft;
+package co.runed.multicharacter.addons.minecraft;
 
 import co.runed.multicharacter.MultiCharacterMod;
-import co.runed.multicharacter.api.IMultiCharacterIntegration;
+import co.runed.multicharacter.api.Addon;
 import co.runed.multicharacter.api.MultiCharacterAPI;
 import co.runed.multicharacter.character.Character;
 import co.runed.multicharacter.character.CharacterManager;
@@ -22,18 +22,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public class MinecraftIntegration implements IMultiCharacterIntegration
+public class MinecraftAddon extends Addon
 {
     public static final String PLAYER_DATA_NBT_KEY = "PlayerData";
 
     @Override
     public void init()
-    {
-
-    }
-
-    @Override
-    public void clientInit()
     {
 
     }
@@ -139,7 +133,7 @@ public class MinecraftIntegration implements IMultiCharacterIntegration
         {
             // WRITE PLAYER.DAT NBT TO CHARACTER NBT
             NBTTagCompound nbt = activeCharacter.getNbt();
-            nbt.setTag(MinecraftIntegration.PLAYER_DATA_NBT_KEY, player.writeToNBT(new NBTTagCompound()));
+            nbt.setTag(MinecraftAddon.PLAYER_DATA_NBT_KEY, player.writeToNBT(new NBTTagCompound()));
 
             activeCharacter.setNbt(nbt);
         }

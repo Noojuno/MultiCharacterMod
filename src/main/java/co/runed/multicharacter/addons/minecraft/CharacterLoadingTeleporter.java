@@ -1,4 +1,4 @@
-package co.runed.multicharacter.integration.minecraft;
+package co.runed.multicharacter.addons.minecraft;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;

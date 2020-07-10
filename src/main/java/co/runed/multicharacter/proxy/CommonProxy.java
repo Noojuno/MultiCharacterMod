@@ -1,5 +1,6 @@
 package co.runed.multicharacter.proxy;
 
+import co.runed.multicharacter.api.MultiCharacterAPI;
 import co.runed.multicharacter.events.server.PlayerConnectionEventHandler;
 import co.runed.multicharacter.events.server.PlayerIOEventHandler;
 import co.runed.multicharacter.network.PacketDispatcher;
@@ -14,6 +15,8 @@ public class CommonProxy
         MinecraftForge.EVENT_BUS.register(new PlayerConnectionEventHandler());
 
         PacketDispatcher.init();
+
+        MultiCharacterAPI.initAddons();
     }
 
     public void init()

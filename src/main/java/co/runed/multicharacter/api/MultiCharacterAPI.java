@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.relauncher.Side;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class MultiCharacterAPI
 {
-    private static final List<IMultiCharacterIntegration> modIntegrations = new ArrayList<>();
+    private static final List<IAddon> addons = new ArrayList<>();
 
     public static File getCharacterDirectory(EntityPlayer player)
     {
@@ -28,18 +29,37 @@ public class MultiCharacterAPI
         return dir;
     }
 
-    public static void addIntegration(IMultiCharacterIntegration integration)
+    public static void initAddons()
     {
-        modIntegrations.add(integration);
+        for (IAddon addon : addons)
+        {
+            addon.init();
+        }
+
+        if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
+        {
+            for (IAddon addon : addons)
+            {
+                if (addon.getClientAddon() != null)
+                {
+                    addon.getClientAddon().init();
+                }
+            }
+        }
     }
 
-    public static void addIntegrationIfModLoaded(String requiredMod, String className)
+    public static void addAddon(IAddon addon)
+    {
+        addons.add(addon);
+    }
+
+    public static void addAddonIfModLoaded(String requiredMod, String className)
     {
         if (Loader.isModLoaded(requiredMod))
         {
             try
             {
-                addIntegration(Class.forName(className).asSubclass(IMultiCharacterIntegration.class).newInstance());
+                addAddon(Class.forName(className).asSubclass(IAddon.class).newInstance());
             }
             catch (InstantiationException | IllegalAccessException | ClassNotFoundException e)
             {
@@ -48,8 +68,8 @@ public class MultiCharacterAPI
         }
     }
 
-    public static List<IMultiCharacterIntegration> getIntegrations()
+    public static List<IAddon> getAddons()
     {
-        return modIntegrations;
+        return addons;
     }
 }

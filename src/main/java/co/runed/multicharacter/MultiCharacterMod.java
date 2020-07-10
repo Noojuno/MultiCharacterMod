@@ -1,9 +1,8 @@
 package co.runed.multicharacter;
 
-import co.runed.multicharacter.api.IMultiCharacterIntegration;
+import co.runed.multicharacter.addons.minecraft.MinecraftAddon;
 import co.runed.multicharacter.api.MultiCharacterAPI;
 import co.runed.multicharacter.character.CharacterManager;
-import co.runed.multicharacter.integration.minecraft.MinecraftIntegration;
 import co.runed.multicharacter.proxy.CommonProxy;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -38,7 +37,9 @@ public class MultiCharacterMod
         logger = event.getModLog();
 
         this.characterManager = new CharacterManager();
-        MultiCharacterAPI.addIntegration(new MinecraftIntegration());
+        MultiCharacterAPI.addAddon(new MinecraftAddon());
+
+        MultiCharacterAPI.addAddonIfModLoaded("moreplayermodels", "co.runed.multicharacter.addons.mpm.MPMAddon");
 
         proxy.preInit();
     }
@@ -53,13 +54,6 @@ public class MultiCharacterMod
     public void postInit(FMLPostInitializationEvent event)
     {
         proxy.postInit();
-
-        MultiCharacterAPI.addIntegrationIfModLoaded("moreplayermodels", "co.runed.multicharacter.integration.mpm.MPMIntegration");
-
-        for (IMultiCharacterIntegration integration : MultiCharacterAPI.getIntegrations())
-        {
-            integration.init();
-        }
     }
 
     public static MultiCharacterMod getInstance()

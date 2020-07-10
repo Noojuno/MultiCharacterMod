@@ -1,6 +1,7 @@
-package co.runed.multicharacter.integration.mpm;
+package co.runed.multicharacter.addons.mpm;
 
 import co.runed.multicharacter.MultiCharacterMod;
+import co.runed.multicharacter.addons.mpm.packets.CPacketUpdateMPM;
 import co.runed.multicharacter.character.Character;
 import co.runed.multicharacter.network.PacketDispatcher;
 import co.runed.multicharacter.util.Scheduler;
@@ -37,7 +38,7 @@ public class MPMUtil
             if (character != null)
             {
                 NBTTagCompound nbt = character.getNbt();
-                nbt.setTag(MPMIntegration.NBT_DATA_KEY, data.writeToNBT());
+                nbt.setTag(MPMAddon.NBT_DATA_KEY, data.writeToNBT());
                 character.setNbt(nbt);
             }
         }

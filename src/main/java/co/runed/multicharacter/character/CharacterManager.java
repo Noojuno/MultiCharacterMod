@@ -1,6 +1,6 @@
 package co.runed.multicharacter.character;
 
-import co.runed.multicharacter.api.IMultiCharacterIntegration;
+import co.runed.multicharacter.api.IAddon;
 import co.runed.multicharacter.api.MultiCharacterAPI;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -152,14 +152,14 @@ public class CharacterManager
 
     public void save(EntityPlayer player)
     {
-        List<IMultiCharacterIntegration> integrations = MultiCharacterAPI.getIntegrations();
+        List<IAddon> integrations = MultiCharacterAPI.getAddons();
 
-        for (IMultiCharacterIntegration loader : integrations)
+        for (IAddon loader : integrations)
         {
             loader.onPreSave(player);
         }
 
-        for (IMultiCharacterIntegration loader : integrations)
+        for (IAddon loader : integrations)
         {
             loader.onSave(player);
         }
@@ -167,14 +167,14 @@ public class CharacterManager
 
     public void load(EntityPlayer player)
     {
-        List<IMultiCharacterIntegration> integrations = MultiCharacterAPI.getIntegrations();
+        List<IAddon> integrations = MultiCharacterAPI.getAddons();
 
-        for (IMultiCharacterIntegration loader : integrations)
+        for (IAddon loader : integrations)
         {
             loader.onPreLoad(player);
         }
 
-        for (IMultiCharacterIntegration loader : integrations)
+        for (IAddon loader : integrations)
         {
             loader.onLoad(player);
         }
@@ -182,11 +182,11 @@ public class CharacterManager
 
     public void onDisconnect(EntityPlayer player)
     {
-        List<IMultiCharacterIntegration> integrations = MultiCharacterAPI.getIntegrations();
+        List<IAddon> integrations = MultiCharacterAPI.getAddons();
 
         this.save(player);
 
-        for (IMultiCharacterIntegration loader : integrations)
+        for (IAddon loader : integrations)
         {
             loader.onDisconnect(player);
         }
@@ -202,9 +202,9 @@ public class CharacterManager
 
     public void onSelectCharacter(EntityPlayer player, Character character)
     {
-        List<IMultiCharacterIntegration> integrations = MultiCharacterAPI.getIntegrations();
+        List<IAddon> integrations = MultiCharacterAPI.getAddons();
 
-        for (IMultiCharacterIntegration loader : integrations)
+        for (IAddon loader : integrations)
         {
             loader.onSelectCharacter(player, character);
         }
@@ -212,9 +212,9 @@ public class CharacterManager
 
     public void onCreateCharacter(EntityPlayer player, Character character)
     {
-        List<IMultiCharacterIntegration> integrations = MultiCharacterAPI.getIntegrations();
+        List<IAddon> integrations = MultiCharacterAPI.getAddons();
 
-        for (IMultiCharacterIntegration loader : integrations)
+        for (IAddon loader : integrations)
         {
             loader.onCreateCharacter(player, character);
         }
@@ -222,9 +222,9 @@ public class CharacterManager
 
     public void onChangeDimension(EntityPlayer player, int fromDim, int toDim)
     {
-        List<IMultiCharacterIntegration> integrations = MultiCharacterAPI.getIntegrations();
+        List<IAddon> integrations = MultiCharacterAPI.getAddons();
 
-        for (IMultiCharacterIntegration loader : integrations)
+        for (IAddon loader : integrations)
         {
             loader.onChangeDimension(player, fromDim, toDim);
         }
@@ -232,9 +232,9 @@ public class CharacterManager
 
     public void onRespawn(EntityPlayer player)
     {
-        List<IMultiCharacterIntegration> integrations = MultiCharacterAPI.getIntegrations();
+        List<IAddon> integrations = MultiCharacterAPI.getAddons();
 
-        for (IMultiCharacterIntegration loader : integrations)
+        for (IAddon loader : integrations)
         {
             loader.onRespawn(player);
         }
