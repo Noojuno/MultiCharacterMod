@@ -15,6 +15,7 @@ To report a bug, please make an issue on this repository or message `Noojuno#546
 
 ### Mod Integration
 - This mod has built in integration with `More Player Models` to save your model data to your character rather than your player. As a result, a players model data is no longer saved in `moreplayermodels/<UUID>.dat` and is instead saved in your `characters.dat`.
+- If a players model is resetting when either changing dimension or setting it while in a dimension other than the overworld, go to each dimension and run the command `/gamerule mpmAllowEntityModels true`
 
 ## Building
 - Download More Player Models for 1.12.2 from [here](https://www.curseforge.com/minecraft/mc-mods/more-player-models) and rename the jar to `moreplayermodels.jar`. Put the jar in a folder called `libs` in the projects root directory.
