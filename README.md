@@ -21,6 +21,11 @@ To report a bug, please make an issue on this repository or message `Noojuno#546
 - Download More Player Models for 1.12.2 from [here](https://www.curseforge.com/minecraft/mc-mods/more-player-models) and rename the jar to `moreplayermodels.jar`. Put the jar in a folder called `libs` in the projects root directory.
 - Follow Minecraft Forges instructions on building a mod.
 
+## Commands
+- `/setrole <player> <index> <role>`
+- `/addrole <player> <role>`
+- `/removerole <player> <role}|ndex>`
+
 ## To-do:
 - [ ] Character role system
     - A role should have a name and a list of commands to run when selected (so permissions, etc can be given)

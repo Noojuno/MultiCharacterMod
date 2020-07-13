@@ -15,3 +15,7 @@ character.button.create=Create New Character
 
 key.categories.multicharacter=Multi Character
 key.character.change=Change Character
+
+command.setrole.usage=/setrole <player> <index> <role>
+command.addrole.usage=/addrole <player> <role>
+command.removerole.usage=/removerole <player> <index|role>

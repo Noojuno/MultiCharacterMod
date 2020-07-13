@@ -3,6 +3,9 @@ package co.runed.multicharacter;
 import co.runed.multicharacter.addons.minecraft.MinecraftAddon;
 import co.runed.multicharacter.api.MultiCharacterAPI;
 import co.runed.multicharacter.character.CharacterManager;
+import co.runed.multicharacter.commands.CommandAddRole;
+import co.runed.multicharacter.commands.CommandRemoveRole;
+import co.runed.multicharacter.commands.CommandSetRole;
 import co.runed.multicharacter.proxy.CommonProxy;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -10,6 +13,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import org.apache.logging.log4j.Logger;
 
 @Mod(modid = MultiCharacterMod.MODID, name = MultiCharacterMod.NAME, version = MultiCharacterMod.VERSION, dependencies = MultiCharacterMod.DEPENDENCIES, useMetadata = true)
@@ -54,6 +58,14 @@ public class MultiCharacterMod
     public void postInit(FMLPostInitializationEvent event)
     {
         proxy.postInit();
+    }
+
+    @EventHandler
+    public void serverStart(FMLServerStartingEvent event)
+    {
+        event.registerServerCommand(new CommandSetRole());
+        event.registerServerCommand(new CommandRemoveRole());
+        event.registerServerCommand(new CommandAddRole());
     }
 
     public static MultiCharacterMod getInstance()
