@@ -22,6 +22,7 @@ To report a bug, please make an issue on this repository or message `Noojuno#546
 - Follow Minecraft Forges instructions on building a mod.
 
 ## Commands
+**Index starts at 1**
 - `/setrole <player> <index> <role>`
 - `/addrole <player> <role>`
 - `/removerole <player> <role}|ndex>`
