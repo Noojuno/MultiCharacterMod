@@ -1,5 +1,6 @@
 package co.runed.multicharacter.client.gui;
 
+import co.runed.multicharacter.addons.minecraft.MinecraftClientAddon;
 import co.runed.multicharacter.character.Character;
 import co.runed.multicharacter.network.PacketDispatcher;
 import co.runed.multicharacter.network.packets.SPacketCreateCharacter;
@@ -94,7 +95,13 @@ public class CharacterListGuiScreen extends GuiScreen
 
         if (!this.creatingCharacter && !this.deletingCharacter && !this.editingCharacter)
         {
-            PacketDispatcher.sendToServer(new SPacketSelectCharacter(this.closeState == 0 ? -1 : this.characters.indexOf(this.selectedCharacter)));
+            int characterIndex = this.closeState == 0 ? -1 : this.characters.indexOf(this.selectedCharacter);
+
+            if(characterIndex > -1 && characters.size() <= characterIndex) {
+                MinecraftClientAddon.selectedCharacter = true;
+            }
+
+            PacketDispatcher.sendToServer(new SPacketSelectCharacter(characterIndex));
         }
     }
 

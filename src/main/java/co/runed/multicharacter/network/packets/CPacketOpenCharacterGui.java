@@ -65,7 +65,13 @@ public class CPacketOpenCharacterGui implements IMessage
         @Override
         public IMessage onMessage(CPacketOpenCharacterGui message, MessageContext ctx)
         {
-            Minecraft.getMinecraft().addScheduledTask(() -> Minecraft.getMinecraft().displayGuiScreen(new CharacterListGuiScreen(null, message.characters)));
+            Minecraft mc = Minecraft.getMinecraft();
+
+            mc.addScheduledTask(() -> {
+                if (mc.currentScreen != null && mc.currentScreen.getClass() == CharacterListGuiScreen.class) return;
+
+                mc.displayGuiScreen(new CharacterListGuiScreen(null, message.characters));
+            });
 
             return null;
         }

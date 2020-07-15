@@ -29,7 +29,7 @@ public class MinecraftAddon extends Addon
     @Override
     public void init()
     {
-
+        this.setClientAddon(new MinecraftClientAddon());
     }
 
     @Override

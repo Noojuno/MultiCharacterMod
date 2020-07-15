@@ -27,6 +27,7 @@ public final class PacketDispatcher
         registerPacket(SPacketSaveCharacters.Handler.class, SPacketSaveCharacters.class, Side.SERVER);
 
         registerPacket(CPacketOpenCharacterGui.Handler.class, CPacketOpenCharacterGui.class, Side.CLIENT);
+        registerPacket(CPacketResetSelectedCharacter.Handler.class, CPacketResetSelectedCharacter.class, Side.CLIENT);
     }
 
     public static <R extends IMessage, RP extends IMessage> void registerPacket(Class<? extends IMessageHandler<R, RP>> messageHandler, Class<R> requestMessageType, Side side)

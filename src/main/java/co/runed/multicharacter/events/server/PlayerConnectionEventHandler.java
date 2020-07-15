@@ -1,7 +1,10 @@
 package co.runed.multicharacter.events.server;
 
 import co.runed.multicharacter.MultiCharacterMod;
+import co.runed.multicharacter.network.PacketDispatcher;
+import co.runed.multicharacter.network.packets.CPacketResetSelectedCharacter;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.world.GameType;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
@@ -16,6 +19,8 @@ public class PlayerConnectionEventHandler
         if (MultiCharacterMod.getCharacterManager().getActiveCharacter(player) != null) return;
 
         player.setGameType(GameType.SPECTATOR);
+
+        PacketDispatcher.sendTo(new CPacketResetSelectedCharacter(), (EntityPlayerMP) player);
     }
 
     @SubscribeEvent

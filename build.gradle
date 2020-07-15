@@ -22,7 +22,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '004'
+version = '005'
 group = 'co.runed.multicharacter' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'multicharacter'
 

@@ -22,7 +22,6 @@ public class MPMClientAddon extends ClientAddon
     {
         GuiScreen gui = event.getGui();
 
-        // TODO: MOVE TO MPM INTEGRATION
         if (gui != null && gui.getClass() == GuiMPM.class)
         {
             PacketDispatcher.sendToServer(new SPacketSaveMPM(((GuiMPM) gui).playerdata));

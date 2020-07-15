@@ -2,14 +2,10 @@ package co.runed.multicharacter.client.gui;
 
 import co.runed.multicharacter.character.Character;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiListExtended;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @SideOnly(Side.CLIENT)
 public class GuiCharacterListEntry implements GuiListExtended.IGuiListEntry

@@ -23,8 +23,13 @@ To report a bug, please make an issue on this repository or message `Noojuno#546
 
 ## Commands
 - `/setrole <player> <index> <role>`
+    - sets a players role text in a specific slot
 - `/addrole <player> <role>`
-- `/removerole <player> <role}|ndex>`
+    - adds a new role to the players next available slot
+- `/removerole <player> <role|index>`
+    - removes a role from a player by either exact value or index
+- `/opencharactergui <player>`
+    - opens character gui for a player
 
 ## To-do:
 - [ ] Character role system

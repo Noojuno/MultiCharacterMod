@@ -19,3 +19,4 @@ key.character.change=Change Character
 command.setrole.usage=/setrole <player> <index> <role>
 command.addrole.usage=/addrole <player> <role>
 command.removerole.usage=/removerole <player> <index|role>
+command.opencharactergui.usage=/opencharactergui <player>
