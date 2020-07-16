@@ -86,9 +86,6 @@ public class MinecraftAddon extends Addon
                         player.changeDimension(dimension, new CharacterLoadingTeleporter());
                     }
 
-                    // FORCE GAMEMODE UPDATE MANUALLY
-                    player.setGameType(GameType.getByID(Math.max(gameMode, 0)));
-
                     // FORCE POSITION UPDATE MANUALLY
                     if (playerData.hasKey("Pos"))
                     {
@@ -101,6 +98,9 @@ public class MinecraftAddon extends Addon
 
                     // LOAD INFO FROM NBT
                     player.readFromNBT(playerData);
+
+                    // FORCE GAMEMODE UPDATE MANUALLY
+                    player.setGameType(GameType.getByID(Math.max(gameMode, 0)));
 
                     // UPDATE PLAYER IN WORLD
                     player.world.updateEntityWithOptionalForce(player, true);

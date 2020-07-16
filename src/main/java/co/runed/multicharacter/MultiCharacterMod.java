@@ -4,6 +4,7 @@ import co.runed.multicharacter.addons.minecraft.MinecraftAddon;
 import co.runed.multicharacter.api.MultiCharacterAPI;
 import co.runed.multicharacter.character.CharacterManager;
 import co.runed.multicharacter.commands.CommandAddRole;
+import co.runed.multicharacter.commands.CommandOpenCharacterGui;
 import co.runed.multicharacter.commands.CommandRemoveRole;
 import co.runed.multicharacter.commands.CommandSetRole;
 import co.runed.multicharacter.proxy.CommonProxy;
@@ -66,6 +67,7 @@ public class MultiCharacterMod
         event.registerServerCommand(new CommandSetRole());
         event.registerServerCommand(new CommandRemoveRole());
         event.registerServerCommand(new CommandAddRole());
+        event.registerServerCommand(new CommandOpenCharacterGui());
     }
 
     public static MultiCharacterMod getInstance()
