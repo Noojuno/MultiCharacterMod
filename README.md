@@ -22,7 +22,7 @@ To report a bug, please make an issue on this repository or message `Noojuno#546
 - Follow Minecraft Forges instructions on building a mod.
 
 ## Commands
-**Index starts at 1**
+**All index values start at 1**
 - `/setrole <player> <index> <role>`
     - sets a players role text in a specific slot
 - `/addrole <player> <role>`
