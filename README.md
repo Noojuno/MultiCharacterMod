@@ -33,9 +33,6 @@ To report a bug, please make an issue on this repository or message `Noojuno#546
     - opens character gui for a player
 
 ## To-do:
-- [ ] Character role system
-    - A role should have a name and a list of commands to run when selected (so permissions, etc can be given)
-    - The mod should also have a general list of commands to run when a role is deselected
 - [ ] Custom kick message when trying to play without selecting a character
 - [ ] Back up character when deleted
 - [ ] Move More Player Models customisation to the character creation screen?
