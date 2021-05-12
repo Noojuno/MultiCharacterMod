@@ -13,16 +13,16 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CPacketOpenCharacterGui implements IMessage
+public class S2CPacketOpenCharacterGui implements IMessage
 {
     private List<Character> characters;
 
-    public CPacketOpenCharacterGui()
+    public S2CPacketOpenCharacterGui()
     {
 
     }
 
-    public CPacketOpenCharacterGui(List<Character> characters)
+    public S2CPacketOpenCharacterGui(List<Character> characters)
     {
         this.characters = characters;
     }
@@ -60,10 +60,10 @@ public class CPacketOpenCharacterGui implements IMessage
         return characters;
     }
 
-    public static class Handler implements IMessageHandler<CPacketOpenCharacterGui, IMessage>
+    public static class Handler implements IMessageHandler<S2CPacketOpenCharacterGui, IMessage>
     {
         @Override
-        public IMessage onMessage(CPacketOpenCharacterGui message, MessageContext ctx)
+        public IMessage onMessage(S2CPacketOpenCharacterGui message, MessageContext ctx)
         {
             Minecraft mc = Minecraft.getMinecraft();
 

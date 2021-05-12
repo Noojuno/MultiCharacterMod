@@ -9,26 +9,23 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public class SPacketEditCharacter implements IMessage
+public class C2SPacketCreateCharacter implements IMessage
 {
-    private int index = -1;
     private Character character;
 
-    public SPacketEditCharacter()
+    public C2SPacketCreateCharacter()
     {
+        this(new Character());
     }
 
-    public SPacketEditCharacter(int index, Character character)
+    public C2SPacketCreateCharacter(Character character)
     {
-        this.index = index;
         this.character = character;
     }
 
     @Override
     public void fromBytes(ByteBuf buf)
     {
-        index = buf.readInt();
-
         character = new Character();
         character.deserializeNBT(ByteBufUtils.readTag(buf));
     }
@@ -36,7 +33,6 @@ public class SPacketEditCharacter implements IMessage
     @Override
     public void toBytes(ByteBuf buf)
     {
-        buf.writeInt(index);
         ByteBufUtils.writeTag(buf, this.character.serializeNBT());
     }
 
@@ -45,15 +41,15 @@ public class SPacketEditCharacter implements IMessage
         return character;
     }
 
-    public static class Handler implements IMessageHandler<SPacketEditCharacter, IMessage>
+    public static class Handler implements IMessageHandler<C2SPacketCreateCharacter, IMessage>
     {
 
         @Override
-        public IMessage onMessage(SPacketEditCharacter message, MessageContext ctx)
+        public IMessage onMessage(C2SPacketCreateCharacter message, MessageContext ctx)
         {
             EntityPlayer player = ctx.getServerHandler().player;
 
-            MultiCharacterMod.getCharacterManager().setCharacter(player, message.index, message.character);
+            MultiCharacterMod.getCharacterManager().addCharacter(player, message.getCharacter());
 
             return null;
         }

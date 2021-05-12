@@ -1,8 +1,8 @@
 package co.runed.multicharacter.addons.mpm;
 
 import co.runed.multicharacter.MultiCharacterMod;
-import co.runed.multicharacter.addons.mpm.packets.CPacketUpdateMPM;
-import co.runed.multicharacter.addons.mpm.packets.SPacketSaveMPM;
+import co.runed.multicharacter.addons.mpm.packets.S2CPacketUpdateMPM;
+import co.runed.multicharacter.addons.mpm.packets.C2SPacketSaveMPM;
 import co.runed.multicharacter.api.Addon;
 import co.runed.multicharacter.character.Character;
 import co.runed.multicharacter.character.CharacterManager;
@@ -25,8 +25,8 @@ public class MPMAddon extends Addon
     {
         this.setClientAddon(new MPMClientAddon());
 
-        PacketDispatcher.registerPacket(CPacketUpdateMPM.Handler.class, CPacketUpdateMPM.class, Side.CLIENT);
-        PacketDispatcher.registerPacket(SPacketSaveMPM.Handler.class, SPacketSaveMPM.class, Side.SERVER);
+        PacketDispatcher.registerPacket(S2CPacketUpdateMPM.Handler.class, S2CPacketUpdateMPM.class, Side.CLIENT);
+        PacketDispatcher.registerPacket(C2SPacketSaveMPM.Handler.class, C2SPacketSaveMPM.class, Side.SERVER);
     }
 
     @Override

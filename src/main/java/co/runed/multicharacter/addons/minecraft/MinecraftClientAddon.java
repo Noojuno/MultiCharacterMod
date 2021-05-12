@@ -1,10 +1,9 @@
 package co.runed.multicharacter.addons.minecraft;
 
-import co.runed.multicharacter.MultiCharacterMod;
 import co.runed.multicharacter.api.IClientAddon;
 import co.runed.multicharacter.events.client.GuiCloseEvent;
 import co.runed.multicharacter.network.PacketDispatcher;
-import co.runed.multicharacter.network.packets.SPacketOpenCharacterGui;
+import co.runed.multicharacter.network.packets.C2SPacketOpenCharacterGui;
 import net.minecraft.client.gui.GuiDownloadTerrain;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.common.MinecraftForge;
@@ -38,7 +37,7 @@ public class MinecraftClientAddon implements IClientAddon
         if (gui != null && gui.getClass() == GuiDownloadTerrain.class && (!shownCharacterGui || !selectedCharacter))
         {
             shownCharacterGui = true;
-            PacketDispatcher.sendToServer(new SPacketOpenCharacterGui());
+            PacketDispatcher.sendToServer(new C2SPacketOpenCharacterGui());
         }
     }
 }

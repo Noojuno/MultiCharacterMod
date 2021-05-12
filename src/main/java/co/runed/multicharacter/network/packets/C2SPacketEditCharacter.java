@@ -4,28 +4,31 @@ import co.runed.multicharacter.MultiCharacterMod;
 import co.runed.multicharacter.character.Character;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public class SPacketDeleteCharacter implements IMessage
+public class C2SPacketEditCharacter implements IMessage
 {
+    private int index = -1;
     private Character character;
 
-    public SPacketDeleteCharacter()
+    public C2SPacketEditCharacter()
     {
     }
 
-    public SPacketDeleteCharacter(Character character)
+    public C2SPacketEditCharacter(int index, Character character)
     {
+        this.index = index;
         this.character = character;
     }
 
     @Override
     public void fromBytes(ByteBuf buf)
     {
+        index = buf.readInt();
+
         character = new Character();
         character.deserializeNBT(ByteBufUtils.readTag(buf));
     }
@@ -33,11 +36,8 @@ public class SPacketDeleteCharacter implements IMessage
     @Override
     public void toBytes(ByteBuf buf)
     {
-        NBTTagCompound nbt = new NBTTagCompound();
-
-        if (this.character != null) nbt = this.character.serializeNBT();
-
-        ByteBufUtils.writeTag(buf, nbt);
+        buf.writeInt(index);
+        ByteBufUtils.writeTag(buf, this.character.serializeNBT());
     }
 
     public Character getCharacter()
@@ -45,15 +45,16 @@ public class SPacketDeleteCharacter implements IMessage
         return character;
     }
 
-    public static class Handler implements IMessageHandler<SPacketDeleteCharacter, IMessage>
+    public static class Handler implements IMessageHandler<C2SPacketEditCharacter, IMessage>
     {
 
         @Override
-        public IMessage onMessage(SPacketDeleteCharacter message, MessageContext ctx)
+        public IMessage onMessage(C2SPacketEditCharacter message, MessageContext ctx)
         {
             EntityPlayer player = ctx.getServerHandler().player;
 
-            MultiCharacterMod.getCharacterManager().removeCharacter(player, message.getCharacter());
+            MultiCharacterMod.getCharacterManager().setCharacter(player, message.index, message.character);
+
             return null;
         }
     }

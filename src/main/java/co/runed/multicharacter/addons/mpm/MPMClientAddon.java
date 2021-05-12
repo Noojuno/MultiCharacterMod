@@ -1,6 +1,6 @@
 package co.runed.multicharacter.addons.mpm;
 
-import co.runed.multicharacter.addons.mpm.packets.SPacketSaveMPM;
+import co.runed.multicharacter.addons.mpm.packets.C2SPacketSaveMPM;
 import co.runed.multicharacter.api.ClientAddon;
 import co.runed.multicharacter.events.client.GuiCloseEvent;
 import co.runed.multicharacter.network.PacketDispatcher;
@@ -24,7 +24,7 @@ public class MPMClientAddon extends ClientAddon
 
         if (gui != null && gui.getClass() == GuiMPM.class)
         {
-            PacketDispatcher.sendToServer(new SPacketSaveMPM(((GuiMPM) gui).playerdata));
+            PacketDispatcher.sendToServer(new C2SPacketSaveMPM(((GuiMPM) gui).playerdata));
         }
     }
 }

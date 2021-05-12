@@ -4,21 +4,21 @@ import co.runed.multicharacter.MultiCharacterMod;
 import co.runed.multicharacter.character.Character;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public class SPacketCreateCharacter implements IMessage
+public class C2SPacketDeleteCharacter implements IMessage
 {
     private Character character;
 
-    public SPacketCreateCharacter()
+    public C2SPacketDeleteCharacter()
     {
-        this(new Character());
     }
 
-    public SPacketCreateCharacter(Character character)
+    public C2SPacketDeleteCharacter(Character character)
     {
         this.character = character;
     }
@@ -33,7 +33,11 @@ public class SPacketCreateCharacter implements IMessage
     @Override
     public void toBytes(ByteBuf buf)
     {
-        ByteBufUtils.writeTag(buf, this.character.serializeNBT());
+        NBTTagCompound nbt = new NBTTagCompound();
+
+        if (this.character != null) nbt = this.character.serializeNBT();
+
+        ByteBufUtils.writeTag(buf, nbt);
     }
 
     public Character getCharacter()
@@ -41,16 +45,15 @@ public class SPacketCreateCharacter implements IMessage
         return character;
     }
 
-    public static class Handler implements IMessageHandler<SPacketCreateCharacter, IMessage>
+    public static class Handler implements IMessageHandler<C2SPacketDeleteCharacter, IMessage>
     {
 
         @Override
-        public IMessage onMessage(SPacketCreateCharacter message, MessageContext ctx)
+        public IMessage onMessage(C2SPacketDeleteCharacter message, MessageContext ctx)
         {
             EntityPlayer player = ctx.getServerHandler().player;
 
-            MultiCharacterMod.getCharacterManager().addCharacter(player, message.getCharacter());
-
+            MultiCharacterMod.getCharacterManager().removeCharacter(player, message.getCharacter());
             return null;
         }
     }

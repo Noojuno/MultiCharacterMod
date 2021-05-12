@@ -1,8 +1,8 @@
 package co.runed.multicharacter.addons.mpm.packets;
 
+import co.runed.multicharacter.MultiCharacterMod;
 import co.runed.multicharacter.addons.mpm.MPMUtil;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -10,16 +10,16 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import noppes.mpm.ModelData;
 
-public class CPacketUpdateMPM implements IMessage
+public class C2SPacketSaveMPM implements IMessage
 {
     public ModelData modelData;
 
-    public CPacketUpdateMPM()
+    public C2SPacketSaveMPM()
     {
 
     }
 
-    public CPacketUpdateMPM(ModelData data)
+    public C2SPacketSaveMPM(ModelData data)
     {
         this.modelData = data;
     }
@@ -39,14 +39,15 @@ public class CPacketUpdateMPM implements IMessage
         ByteBufUtils.writeTag(buf, this.modelData.writeToNBT());
     }
 
-    public static class Handler implements IMessageHandler<CPacketUpdateMPM, IMessage>
+    public static class Handler implements IMessageHandler<C2SPacketSaveMPM, IMessage>
     {
         @Override
-        public IMessage onMessage(CPacketUpdateMPM message, MessageContext ctx)
+        public IMessage onMessage(C2SPacketSaveMPM message, MessageContext ctx)
         {
             ModelData data = message.modelData;
 
-            MPMUtil.setModelData(Minecraft.getMinecraft().player, data);
+            MPMUtil.setModelData(ctx.getServerHandler().player, data);
+            MultiCharacterMod.getCharacterManager().save(ctx.getServerHandler().player);
 
             return null;
         }

@@ -3,7 +3,7 @@ package co.runed.multicharacter.commands;
 import co.runed.multicharacter.MultiCharacterMod;
 import co.runed.multicharacter.character.Character;
 import co.runed.multicharacter.network.PacketDispatcher;
-import co.runed.multicharacter.network.packets.CPacketOpenCharacterGui;
+import co.runed.multicharacter.network.packets.S2CPacketOpenCharacterGui;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -25,7 +25,7 @@ public class CommandOpenCharacterGui extends CommandBase
             EntityPlayerMP player = server.getPlayerList().getPlayerByUsername(playerName);
             List<Character> characters = MultiCharacterMod.getCharacterManager().getCharacters(player);
 
-            PacketDispatcher.sendTo(new CPacketOpenCharacterGui(characters), player);
+            PacketDispatcher.sendTo(new S2CPacketOpenCharacterGui(characters), player);
             sender.sendMessage(new TextComponentString("Opened character selection for " + playerName));
         }
         catch (Exception e) {

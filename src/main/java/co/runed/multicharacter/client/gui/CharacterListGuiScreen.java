@@ -3,10 +3,10 @@ package co.runed.multicharacter.client.gui;
 import co.runed.multicharacter.addons.minecraft.MinecraftClientAddon;
 import co.runed.multicharacter.character.Character;
 import co.runed.multicharacter.network.PacketDispatcher;
-import co.runed.multicharacter.network.packets.SPacketCreateCharacter;
-import co.runed.multicharacter.network.packets.SPacketDeleteCharacter;
-import co.runed.multicharacter.network.packets.SPacketEditCharacter;
-import co.runed.multicharacter.network.packets.SPacketSelectCharacter;
+import co.runed.multicharacter.network.packets.C2SPacketCreateCharacter;
+import co.runed.multicharacter.network.packets.C2SPacketDeleteCharacter;
+import co.runed.multicharacter.network.packets.C2SPacketEditCharacter;
+import co.runed.multicharacter.network.packets.C2SPacketSelectCharacter;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiListExtended;
 import net.minecraft.client.gui.GuiScreen;
@@ -101,7 +101,7 @@ public class CharacterListGuiScreen extends GuiScreen
                 MinecraftClientAddon.selectedCharacter = true;
             }
 
-            PacketDispatcher.sendToServer(new SPacketSelectCharacter(characterIndex));
+            PacketDispatcher.sendToServer(new C2SPacketSelectCharacter(characterIndex, characters.get(characterIndex)));
         }
     }
 
@@ -167,7 +167,7 @@ public class CharacterListGuiScreen extends GuiScreen
 
                 this.characters.remove(this.selectedCharacter);
 
-                PacketDispatcher.sendToServer(new SPacketDeleteCharacter(this.selectedCharacter));
+                PacketDispatcher.sendToServer(new C2SPacketDeleteCharacter(this.selectedCharacter));
 
                 this.characterSelectionList.setSelectedSlotIndex(-1);
                 this.characterSelectionList.updateCharacters(this.characters);
@@ -183,7 +183,7 @@ public class CharacterListGuiScreen extends GuiScreen
             {
                 // CREATE CHARACTER
 
-                PacketDispatcher.sendToServer(new SPacketCreateCharacter(this.selectedCharacter));
+                PacketDispatcher.sendToServer(new C2SPacketCreateCharacter(this.selectedCharacter));
 
                 this.characters.add(this.selectedCharacter);
 
@@ -202,7 +202,7 @@ public class CharacterListGuiScreen extends GuiScreen
             {
                 int index = this.characters.indexOf(this.selectedCharacter);
 
-                PacketDispatcher.sendToServer(new SPacketEditCharacter(index, this.selectedCharacter));
+                PacketDispatcher.sendToServer(new C2SPacketEditCharacter(index, this.selectedCharacter));
 
                 this.characters.set(index, this.selectedCharacter);
 

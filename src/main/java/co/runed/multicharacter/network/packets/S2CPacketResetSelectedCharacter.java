@@ -1,15 +1,14 @@
 package co.runed.multicharacter.network.packets;
 
-import co.runed.multicharacter.MultiCharacterMod;
+import co.runed.multicharacter.addons.minecraft.MinecraftClientAddon;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public class SPacketSaveCharacters implements IMessage
+public class S2CPacketResetSelectedCharacter implements IMessage
 {
-    public SPacketSaveCharacters()
+    public S2CPacketResetSelectedCharacter()
     {
     }
 
@@ -23,14 +22,12 @@ public class SPacketSaveCharacters implements IMessage
     {
     }
 
-    public static class Handler implements IMessageHandler<SPacketSaveCharacters, IMessage>
+    public static class Handler implements IMessageHandler<S2CPacketResetSelectedCharacter, IMessage>
     {
         @Override
-        public IMessage onMessage(SPacketSaveCharacters message, MessageContext ctx)
+        public IMessage onMessage(S2CPacketResetSelectedCharacter message, MessageContext ctx)
         {
-            EntityPlayer player = ctx.getServerHandler().player;
-
-            MultiCharacterMod.getCharacterManager().save(player);
+            MinecraftClientAddon.selectedCharacter = false;
 
             return null;
         }

@@ -8,9 +8,9 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public class SPacketOpenCharacterGui implements IMessage
+public class C2SPacketOpenCharacterGui implements IMessage
 {
-    public SPacketOpenCharacterGui()
+    public C2SPacketOpenCharacterGui()
     {
 
     }
@@ -25,15 +25,15 @@ public class SPacketOpenCharacterGui implements IMessage
     {
     }
 
-    public static class Handler implements IMessageHandler<SPacketOpenCharacterGui, IMessage>
+    public static class Handler implements IMessageHandler<C2SPacketOpenCharacterGui, IMessage>
     {
 
         @Override
-        public IMessage onMessage(SPacketOpenCharacterGui message, MessageContext ctx)
+        public IMessage onMessage(C2SPacketOpenCharacterGui message, MessageContext ctx)
         {
             EntityPlayerMP player = ctx.getServerHandler().player;
 
-            PacketDispatcher.sendTo(new CPacketOpenCharacterGui(MultiCharacterMod.getCharacterManager().getCharacters(player)), player);
+            PacketDispatcher.sendTo(new S2CPacketOpenCharacterGui(MultiCharacterMod.getCharacterManager().getCharacters(player)), player);
 
             return null;
         }

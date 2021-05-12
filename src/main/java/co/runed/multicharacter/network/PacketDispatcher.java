@@ -19,27 +19,35 @@ public final class PacketDispatcher
 
     public static void init()
     {
-        registerPacket(SPacketSelectCharacter.Handler.class, SPacketSelectCharacter.class, Side.SERVER);
-        registerPacket(SPacketCreateCharacter.Handler.class, SPacketCreateCharacter.class, Side.SERVER);
-        registerPacket(SPacketDeleteCharacter.Handler.class, SPacketDeleteCharacter.class, Side.SERVER);
-        registerPacket(SPacketEditCharacter.Handler.class, SPacketEditCharacter.class, Side.SERVER);
-        registerPacket(SPacketOpenCharacterGui.Handler.class, SPacketOpenCharacterGui.class, Side.SERVER);
-        registerPacket(SPacketSaveCharacters.Handler.class, SPacketSaveCharacters.class, Side.SERVER);
+        registerPacket(C2SPacketSelectCharacter.Handler.class, C2SPacketSelectCharacter.class, Side.SERVER);
+        registerPacket(C2SPacketCreateCharacter.Handler.class, C2SPacketCreateCharacter.class, Side.SERVER);
+        registerPacket(C2SPacketDeleteCharacter.Handler.class, C2SPacketDeleteCharacter.class, Side.SERVER);
+        registerPacket(C2SPacketEditCharacter.Handler.class, C2SPacketEditCharacter.class, Side.SERVER);
+        registerPacket(C2SPacketOpenCharacterGui.Handler.class, C2SPacketOpenCharacterGui.class, Side.SERVER);
+        registerPacket(C2SPacketSaveCharacters.Handler.class, C2SPacketSaveCharacters.class, Side.SERVER);
 
-        registerPacket(CPacketOpenCharacterGui.Handler.class, CPacketOpenCharacterGui.class, Side.CLIENT);
-        registerPacket(CPacketResetSelectedCharacter.Handler.class, CPacketResetSelectedCharacter.class, Side.CLIENT);
+        registerPacket(S2CPacketOpenCharacterGui.Handler.class, S2CPacketOpenCharacterGui.class, Side.CLIENT);
+        registerPacket(S2CPacketResetSelectedCharacter.Handler.class, S2CPacketResetSelectedCharacter.class, Side.CLIENT);
     }
 
     public static <R extends IMessage, RP extends IMessage> void registerPacket(Class<? extends IMessageHandler<R, RP>> messageHandler, Class<R> requestMessageType, Side side)
     {
+        registerPacket(PACKET_ID + 1, messageHandler, requestMessageType, side);
+    }
+
+    public static <R extends IMessage, RP extends IMessage> void registerPacket(int id, Class<? extends IMessageHandler<R, RP>> messageHandler, Class<R> requestMessageType, Side side)
+    {
+        id = id <= PACKET_ID ? PACKET_ID + 1 : id;
+        PACKET_ID = id;
+
         // IF ON A SERVER AND PACKET IS TO BE RUN ON CLIENT, SET HANDLER TO BLANK LAMBDA TO ALLOW USE OF CLIENT SIDE CODE IN PACKET
         if (side == Side.CLIENT && FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
         {
-            WRAPPER.registerMessage((message, ctx) -> null, requestMessageType, PACKET_ID++, side);
+            WRAPPER.registerMessage((message, ctx) -> null, requestMessageType, id, side);
             return;
         }
 
-        WRAPPER.registerMessage(messageHandler, requestMessageType, PACKET_ID++, side);
+        WRAPPER.registerMessage(messageHandler, requestMessageType, id, side);
     }
 
     public static void sendTo(IMessage message, EntityPlayerMP player)

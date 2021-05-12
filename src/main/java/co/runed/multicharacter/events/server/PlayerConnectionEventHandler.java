@@ -2,7 +2,7 @@ package co.runed.multicharacter.events.server;
 
 import co.runed.multicharacter.MultiCharacterMod;
 import co.runed.multicharacter.network.PacketDispatcher;
-import co.runed.multicharacter.network.packets.CPacketResetSelectedCharacter;
+import co.runed.multicharacter.network.packets.S2CPacketResetSelectedCharacter;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.world.GameType;
@@ -20,7 +20,7 @@ public class PlayerConnectionEventHandler
 
         player.setGameType(GameType.SPECTATOR);
 
-        PacketDispatcher.sendTo(new CPacketResetSelectedCharacter(), (EntityPlayerMP) player);
+        PacketDispatcher.sendTo(new S2CPacketResetSelectedCharacter(), (EntityPlayerMP) player);
     }
 
     @SubscribeEvent
