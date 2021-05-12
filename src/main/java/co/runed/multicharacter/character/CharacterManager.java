@@ -110,6 +110,8 @@ public class CharacterManager
         this.onSelectCharacter(player, character);
 
         this.load(player);
+
+        this.onPostSelectCharacter(player, character);
     }
 
     public NBTTagCompound serializeCharacters(EntityPlayer player)
@@ -207,6 +209,16 @@ public class CharacterManager
         for (IAddon loader : integrations)
         {
             loader.onSelectCharacter(player, character);
+        }
+    }
+
+    public void onPostSelectCharacter(EntityPlayer player, Character character)
+    {
+        List<IAddon> integrations = MultiCharacterAPI.getAddons();
+
+        for (IAddon loader : integrations)
+        {
+            loader.onPostSelectCharacter(player, character);
         }
     }
 

@@ -15,6 +15,10 @@ import noppes.mpm.ModelData;
 public class MPMAddon extends Addon
 {
     public static final String NBT_DATA_KEY = "MorePlayerModels";
+    public static final String MPM_EXTRA_KEY = "mpm_extra";
+    public static final String IS_DISGUISED_KEY = "is_disguised";
+    public static final String SKIN_URL_KEY = "url";
+    public static final String REGULAR_ENTITY_KEY = "regular_entity";
 
     @Override
     public void init()
@@ -63,7 +67,7 @@ public class MPMAddon extends Addon
 
         if (activeCharacter == null) return;
 
-        NBTTagCompound additionalNbt = characterManager.getActiveCharacter(player).getNbt();
+        NBTTagCompound characterNbt = characterManager.getActiveCharacter(player).getNbt();
 
         ModelData data = player.getCapability(ModelData.MODELDATA_CAPABILITY, null);
         data.displayName = activeCharacter.getName();
@@ -71,8 +75,19 @@ public class MPMAddon extends Addon
 
         MPMUtil.setModelData(player, data);
 
-        additionalNbt.setTag(NBT_DATA_KEY, data.writeToNBT());
-        activeCharacter.setNbt(additionalNbt);
+        NBTTagCompound extra = characterNbt.getCompoundTag(MPM_EXTRA_KEY);
+        if (extra.hasKey(IS_DISGUISED_KEY))
+        {
+            if (!extra.getBoolean(IS_DISGUISED_KEY))
+            {
+                extra.setString(SKIN_URL_KEY, data.url);
+                if (data.entityClass != null) extra.setString(REGULAR_ENTITY_KEY, data.entityClass.toString());
+            }
+        }
+
+        characterNbt.setTag(NBT_DATA_KEY, data.writeToNBT());
+
+        activeCharacter.setNbt(characterNbt);
     }
 
     @Override
@@ -103,13 +118,33 @@ public class MPMAddon extends Addon
     @Override
     public void onSelectCharacter(EntityPlayer player, Character character)
     {
-        CharacterManager characterManager = MultiCharacterMod.getCharacterManager();
-
         ModelData data = player.getCapability(ModelData.MODELDATA_CAPABILITY, null);
         data.readFromNBT(new NBTTagCompound());
         data.displayName = character.getName();
 
         MPMUtil.setModelData(player, data);
+    }
+
+    @Override
+    public void onPostSelectCharacter(EntityPlayer player, Character character)
+    {
+        NBTTagCompound additionalNbt = character.getNbt();
+
+        NBTTagCompound extra = additionalNbt.getCompoundTag(MPM_EXTRA_KEY);
+        if (extra.hasKey(IS_DISGUISED_KEY))
+        {
+            if (extra.getBoolean(IS_DISGUISED_KEY))
+            {
+                try
+                {
+                    MPMUtil.clearDisguise(player);
+                }
+                catch (ClassNotFoundException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @Override

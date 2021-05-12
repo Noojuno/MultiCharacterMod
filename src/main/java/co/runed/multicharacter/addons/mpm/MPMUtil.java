@@ -5,6 +5,7 @@ import co.runed.multicharacter.addons.mpm.packets.CPacketUpdateMPM;
 import co.runed.multicharacter.character.Character;
 import co.runed.multicharacter.network.PacketDispatcher;
 import co.runed.multicharacter.util.Scheduler;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
@@ -69,5 +70,71 @@ public class MPMUtil
             PacketDispatcher.sendTo(new CPacketUpdateMPM(data), (EntityPlayerMP) player);
             Server.sendAssociatedData(player, EnumPackets.SEND_PLAYER_DATA, player.getUniqueID(), data.writeToNBT());
         }
+    }
+
+    public static void clearDisguise(EntityPlayer player) throws ClassNotFoundException
+    {
+        Character character = MultiCharacterMod.getCharacterManager().getActiveCharacter(player);
+        ModelData data = player.getCapability(ModelData.MODELDATA_CAPABILITY, null);
+
+        NBTTagCompound nbt = character.getNbt();
+        NBTTagCompound extra = nbt.getCompoundTag(MPMAddon.MPM_EXTRA_KEY);
+        String url = extra.getString(MPMAddon.SKIN_URL_KEY);
+
+        extra.setBoolean(MPMAddon.IS_DISGUISED_KEY, false);
+
+        String regularEntity = extra.getString(MPMAddon.REGULAR_ENTITY_KEY);
+        if (regularEntity.isEmpty())
+        {
+            data.clearEntity();
+            data.entityClass = null;
+        }
+        else
+        {
+            data.setEntityClass((Class<? extends EntityLivingBase>) Class.forName(regularEntity));
+        }
+
+        data.url = url;
+        extra.setString(MPMAddon.SKIN_URL_KEY, "");
+        extra.setBoolean(MPMAddon.IS_DISGUISED_KEY, false);
+
+        data.resourceInit = false;
+        data.resourceLoaded = false;
+
+        nbt.setTag(MPMAddon.MPM_EXTRA_KEY, extra);
+        character.setNbt(nbt);
+
+        MPMUtil.setModelData(player, data);
+    }
+
+    public static void setDisguise(EntityPlayer player, Class<? extends EntityLivingBase> entityClass)
+    {
+        Character character = MultiCharacterMod.getCharacterManager().getActiveCharacter(player);
+        ModelData data = player.getCapability(ModelData.MODELDATA_CAPABILITY, null);
+
+        NBTTagCompound nbt = character.getNbt();
+        NBTTagCompound extra = nbt.getCompoundTag(MPMAddon.MPM_EXTRA_KEY);
+        boolean isDisguised = extra.getBoolean(MPMAddon.IS_DISGUISED_KEY);
+
+        extra.setBoolean(MPMAddon.IS_DISGUISED_KEY, true);
+
+        if (!isDisguised)
+        {
+            extra.setString(MPMAddon.SKIN_URL_KEY, data.url);
+            if (data.entityClass != null) extra.setString(MPMAddon.REGULAR_ENTITY_KEY, data.entityClass.toString());
+        }
+
+        data.url = "";
+        data.setEntityClass(entityClass);
+
+        extra.setBoolean(MPMAddon.IS_DISGUISED_KEY, true);
+
+        data.resourceInit = false;
+        data.resourceLoaded = false;
+
+        nbt.setTag(MPMAddon.MPM_EXTRA_KEY, extra);
+        character.setNbt(nbt);
+
+        MPMUtil.setModelData(player, data);
     }
 }

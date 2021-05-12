@@ -211,6 +211,12 @@ public class MinecraftAddon extends Addon
     }
 
     @Override
+    public void onPostSelectCharacter(EntityPlayer player, Character character)
+    {
+
+    }
+
+    @Override
     public void onChangeDimension(EntityPlayer player, int fromDim, int toDim)
     {
 

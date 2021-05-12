@@ -1,6 +1,7 @@
 package co.runed.multicharacter;
 
 import co.runed.multicharacter.addons.minecraft.MinecraftAddon;
+import co.runed.multicharacter.addons.mpm.commands.CommandTransform;
 import co.runed.multicharacter.api.MultiCharacterAPI;
 import co.runed.multicharacter.character.CharacterManager;
 import co.runed.multicharacter.commands.CommandAddRole;
@@ -68,6 +69,7 @@ public class MultiCharacterMod
         event.registerServerCommand(new CommandRemoveRole());
         event.registerServerCommand(new CommandAddRole());
         event.registerServerCommand(new CommandOpenCharacterGui());
+        event.registerServerCommand(new CommandTransform());
     }
 
     public static MultiCharacterMod getInstance()

@@ -56,6 +56,14 @@ public interface IAddon
     void onSelectCharacter(EntityPlayer player, Character character);
 
     /**
+     * Runs as a character is selected, after it has been loaded
+     *
+     * @param player    The player
+     * @param character The character
+     */
+    void onPostSelectCharacter(EntityPlayer player, Character character);
+
+    /**
      * Runs when a player has disconnected
      *
      * @param player The player
