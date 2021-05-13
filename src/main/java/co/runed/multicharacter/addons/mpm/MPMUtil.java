@@ -91,7 +91,19 @@ public class MPMUtil
         }
         else
         {
-            data.setEntityClass((Class<? extends EntityLivingBase>) Class.forName(regularEntity));
+            try
+            {
+                if (regularEntity.startsWith("class "))
+                {
+                    regularEntity = regularEntity.substring(6);
+                }
+
+                data.setEntityClass((Class<? extends EntityLivingBase>) Class.forName(regularEntity));
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
         }
 
         data.url = url;
