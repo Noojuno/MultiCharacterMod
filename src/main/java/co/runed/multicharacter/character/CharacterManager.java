@@ -2,6 +2,7 @@ package co.runed.multicharacter.character;
 
 import co.runed.multicharacter.api.IAddon;
 import co.runed.multicharacter.api.MultiCharacterAPI;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -160,9 +161,14 @@ public class CharacterManager
 
     public void save(UUID playerUUID)
     {
-        List<IAddon> integrations = MultiCharacterAPI.getAddons();
-
         EntityPlayer player = FMLServerHandler.instance().getServer().getPlayerList().getPlayerByUUID(playerUUID);
+
+        this.save(player);
+    }
+
+    public void save(EntityPlayer player)
+    {
+        List<IAddon> integrations = MultiCharacterAPI.getAddons();
 
         for (IAddon loader : integrations)
         {
@@ -177,9 +183,15 @@ public class CharacterManager
 
     public void load(UUID playerUUID)
     {
-        List<IAddon> integrations = MultiCharacterAPI.getAddons();
+        EntityPlayer player = FMLServerHandler.instance()
+                .getServer()
+                .getPlayerList()
+                .getPlayerByUUID(playerUUID);
+    }
 
-        EntityPlayer player = FMLServerHandler.instance().getServer().getPlayerList().getPlayerByUUID(playerUUID);
+    public void load(EntityPlayer player)
+    {
+        List<IAddon> integrations = MultiCharacterAPI.getAddons();
 
         for (IAddon loader : integrations)
         {

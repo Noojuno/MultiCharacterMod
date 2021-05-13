@@ -9,12 +9,12 @@ public class PlayerIOEventHandler
     @SubscribeEvent
     public void onLoadPlayer(PlayerEvent.LoadFromFile event)
     {
-        MultiCharacterMod.getCharacterManager().load(event.getEntityPlayer().getUniqueID());
+        MultiCharacterMod.getCharacterManager().load(event.getEntityPlayer());
     }
 
     @SubscribeEvent
     public void onSavePlayer(PlayerEvent.SaveToFile event)
     {
-        MultiCharacterMod.getCharacterManager().save(event.getEntityPlayer().getUniqueID());
+        MultiCharacterMod.getCharacterManager().save(event.getEntityPlayer());
     }
 }
