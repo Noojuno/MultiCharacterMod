@@ -34,7 +34,7 @@ public class MPMUtil
 
         if (player instanceof EntityPlayerMP)
         {
-            Character character = MultiCharacterMod.getCharacterManager().getActiveCharacter(player);
+            Character character = MultiCharacterMod.getCharacterManager().getActiveCharacter(player.getUniqueID());
 
             if (character != null)
             {
@@ -74,7 +74,7 @@ public class MPMUtil
 
     public static void clearDisguise(EntityPlayer player) throws ClassNotFoundException
     {
-        Character character = MultiCharacterMod.getCharacterManager().getActiveCharacter(player);
+        Character character = MultiCharacterMod.getCharacterManager().getActiveCharacter(player.getUniqueID());
         ModelData data = player.getCapability(ModelData.MODELDATA_CAPABILITY, null);
 
         NBTTagCompound nbt = character.getNbt();
@@ -109,7 +109,7 @@ public class MPMUtil
 
     public static void setDisguise(EntityPlayer player, Class<? extends EntityLivingBase> entityClass)
     {
-        Character character = MultiCharacterMod.getCharacterManager().getActiveCharacter(player);
+        Character character = MultiCharacterMod.getCharacterManager().getActiveCharacter(player.getUniqueID());
         ModelData data = player.getCapability(ModelData.MODELDATA_CAPABILITY, null);
 
         NBTTagCompound nbt = character.getNbt();

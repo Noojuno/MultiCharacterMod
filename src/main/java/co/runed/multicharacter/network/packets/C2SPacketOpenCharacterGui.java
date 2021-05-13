@@ -33,7 +33,7 @@ public class C2SPacketOpenCharacterGui implements IMessage
         {
             EntityPlayerMP player = ctx.getServerHandler().player;
 
-            PacketDispatcher.sendTo(new S2CPacketOpenCharacterGui(MultiCharacterMod.getCharacterManager().getCharacters(player)), player);
+            PacketDispatcher.sendTo(new S2CPacketOpenCharacterGui(MultiCharacterMod.getCharacterManager().getCharacters(player.getUniqueID())), player);
 
             return null;
         }

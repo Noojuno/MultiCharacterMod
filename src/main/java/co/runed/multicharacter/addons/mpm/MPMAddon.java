@@ -39,7 +39,7 @@ public class MPMAddon extends Addon
     public void onLoad(EntityPlayer player)
     {
         CharacterManager characterManager = MultiCharacterMod.getCharacterManager();
-        Character activeCharacter = characterManager.getActiveCharacter(player);
+        Character activeCharacter = characterManager.getActiveCharacter(player.getUniqueID());
 
         if (activeCharacter == null) return;
 
@@ -63,11 +63,11 @@ public class MPMAddon extends Addon
     public void onPreSave(EntityPlayer player)
     {
         CharacterManager characterManager = MultiCharacterMod.getCharacterManager();
-        Character activeCharacter = characterManager.getActiveCharacter(player);
+        Character activeCharacter = characterManager.getActiveCharacter(player.getUniqueID());
 
         if (activeCharacter == null) return;
 
-        NBTTagCompound characterNbt = characterManager.getActiveCharacter(player).getNbt();
+        NBTTagCompound characterNbt = characterManager.getActiveCharacter(player.getUniqueID()).getNbt();
 
         ModelData data = player.getCapability(ModelData.MODELDATA_CAPABILITY, null);
         data.displayName = activeCharacter.getName();

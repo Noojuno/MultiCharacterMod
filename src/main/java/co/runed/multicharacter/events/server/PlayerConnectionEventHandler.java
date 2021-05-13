@@ -16,7 +16,7 @@ public class PlayerConnectionEventHandler
     {
         EntityPlayer player = event.player;
 
-        if (MultiCharacterMod.getCharacterManager().getActiveCharacter(player) != null) return;
+        if (MultiCharacterMod.getCharacterManager().getActiveCharacter(player.getUniqueID()) != null) return;
 
         player.setGameType(GameType.SPECTATOR);
 

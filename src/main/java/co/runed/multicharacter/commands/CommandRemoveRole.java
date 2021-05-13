@@ -20,7 +20,7 @@ public class CommandRemoveRole extends CommandBase
             String role = params[1];
 
             EntityPlayer player = server.getPlayerList().getPlayerByUsername(playerName);
-            Character character = MultiCharacterMod.getCharacterManager().getActiveCharacter(player);
+            Character character = MultiCharacterMod.getCharacterManager().getActiveCharacter(player.getUniqueID());
 
             boolean success;
             if(role.matches("-?\\d+")) {

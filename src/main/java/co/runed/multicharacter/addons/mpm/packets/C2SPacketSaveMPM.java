@@ -47,7 +47,7 @@ public class C2SPacketSaveMPM implements IMessage
             ModelData data = message.modelData;
 
             MPMUtil.setModelData(ctx.getServerHandler().player, data);
-            MultiCharacterMod.getCharacterManager().save(ctx.getServerHandler().player);
+            MultiCharacterMod.getCharacterManager().save(ctx.getServerHandler().player.getUniqueID());
 
             return null;
         }

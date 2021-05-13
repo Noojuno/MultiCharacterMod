@@ -53,7 +53,7 @@ public class C2SPacketEditCharacter implements IMessage
         {
             EntityPlayer player = ctx.getServerHandler().player;
 
-            MultiCharacterMod.getCharacterManager().setCharacter(player, message.index, message.character);
+            MultiCharacterMod.getCharacterManager().setCharacter(player.getUniqueID(), message.index, message.character);
 
             return null;
         }

@@ -5,7 +5,9 @@ import co.runed.multicharacter.api.MultiCharacterAPI;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.fml.server.FMLServerHandler;
 
 import java.util.*;
 
@@ -20,57 +22,59 @@ public class CharacterManager
      * Sets character at a specific index
      * Used for character editing
      *
-     * @param player    The player
+     * @param playerUuid    The player
      * @param index     Index
      * @param character The character
      */
-    public void setCharacter(EntityPlayer player, int index, Character character)
+    public void setCharacter(UUID playerUuid, int index, Character character)
     {
-        this.playerCharacters.putIfAbsent(player.getUniqueID(), new ArrayList<>());
+        this.playerCharacters.putIfAbsent(playerUuid, new ArrayList<>());
 
         this.characters.put(character.getUniqueId(), character);
-        this.playerCharacters.get(player.getUniqueID()).set(index, character.getUniqueId());
+        this.playerCharacters.get(playerUuid).set(index, character.getUniqueId());
     }
 
-    public void addCharacter(EntityPlayer player, Character character)
+    public void addCharacter(UUID playerUuid, Character character)
     {
-        this.playerCharacters.putIfAbsent(player.getUniqueID(), new ArrayList<>());
+        this.playerCharacters.putIfAbsent(playerUuid, new ArrayList<>());
 
-        this.playerCharacters.get(player.getUniqueID()).add(character.getUniqueId());
+        this.playerCharacters.get(playerUuid).add(character.getUniqueId());
         this.characters.put(character.getUniqueId(), character);
+
+        EntityPlayer player = FMLServerHandler.instance().getServer().getPlayerList().getPlayerByUUID(playerUuid);
 
         this.onCreateCharacter(player, character);
 
-        this.save(player);
+        this.save(playerUuid);
     }
 
-    public void removeCharacter(EntityPlayer player, Character character)
+    public void removeCharacter(UUID playerUuid, Character character)
     {
-        this.playerCharacters.putIfAbsent(player.getUniqueID(), new ArrayList<>());
+        this.playerCharacters.putIfAbsent(playerUuid, new ArrayList<>());
 
-        if (this.getActiveCharacter(player) == character)
+        if (this.getActiveCharacter(playerUuid) == character)
         {
-            this.setActiveCharacter(player, null);
+            this.setActiveCharacter(playerUuid, null);
         }
 
-        this.playerCharacters.get(player.getUniqueID()).removeIf((id) -> id.equals(character.getUniqueId()));
+        this.playerCharacters.get(playerUuid).removeIf((id) -> id.equals(character.getUniqueId()));
         this.characters.remove(character.getUniqueId());
 
-        this.save(player);
+        this.save(playerUuid);
     }
 
     /***
      *
-     * @param player
+     * @param playerUuid
      * @return
      */
-    public List<Character> getCharacters(EntityPlayer player)
+    public List<Character> getCharacters(UUID playerUuid)
     {
-        this.playerCharacters.putIfAbsent(player.getUniqueID(), new ArrayList<>());
+        this.playerCharacters.putIfAbsent(playerUuid, new ArrayList<>());
 
         List<Character> characters = new ArrayList<>();
 
-        for (UUID uuid : this.playerCharacters.get(player.getUniqueID()))
+        for (UUID uuid : this.playerCharacters.get(playerUuid))
         {
             if (this.characters.containsKey(uuid))
             {
@@ -78,48 +82,50 @@ public class CharacterManager
             }
         }
 
-        return Collections.unmodifiableList(characters);//this.playerCharacters.get(player.getUniqueID());
+        return Collections.unmodifiableList(characters);//this.playerCharacters.get(player);
     }
 
-    public Character getActiveCharacter(EntityPlayer player)
+    public Character getActiveCharacter(UUID playerUuid)
     {
-        if (!this.activeCharacter.containsKey(player.getUniqueID())) return null;
+        if (!this.activeCharacter.containsKey(playerUuid)) return null;
 
-        UUID characterUUID = this.activeCharacter.get(player.getUniqueID());
+        UUID characterUUID = this.activeCharacter.get(playerUuid);
 
         return this.characters.get(characterUUID);
     }
 
-    public void setActiveCharacter(EntityPlayer player, int index)
+    public void setActiveCharacter(UUID playerUuid, int index)
     {
-        if (index >= this.getCharacters(player).size()) return;
+        if (index >= this.getCharacters(playerUuid).size()) return;
 
-        this.setActiveCharacter(player, this.getCharacters(player).get(index));
+        this.setActiveCharacter(playerUuid, this.getCharacters(playerUuid).get(index));
     }
 
-    public void setActiveCharacter(EntityPlayer player, Character character)
+    public void setActiveCharacter(UUID playerUuid, Character character)
     {
-        if (!this.getCharacters(player).contains(character)) return;
-        Character active = this.getActiveCharacter(player);
+        if (!this.getCharacters(playerUuid).contains(character)) return;
+        Character active = this.getActiveCharacter(playerUuid);
         if (active != null && active.equals(character)) return;
 
-        this.save(player);
+        this.save(playerUuid);
 
-        this.activeCharacter.put(player.getUniqueID(), character.getUniqueId());
+        this.activeCharacter.put(playerUuid, character.getUniqueId());
+
+        EntityPlayer player = FMLServerHandler.instance().getServer().getPlayerList().getPlayerByUUID(playerUuid);
 
         this.onSelectCharacter(player, character);
 
-        this.load(player);
+        this.load(playerUuid);
 
         this.onPostSelectCharacter(player, character);
     }
 
-    public NBTTagCompound serializeCharacters(EntityPlayer player)
+    public NBTTagCompound serializeCharacters(UUID player)
     {
         NBTTagCompound nbt = new NBTTagCompound();
         NBTTagList nbtList = new NBTTagList();
 
-        nbt.setUniqueId("uuid", player.getUniqueID());
+        nbt.setUniqueId("uuid", player);
 
         for (Character character : this.getCharacters(player))
         {
@@ -152,9 +158,11 @@ public class CharacterManager
         this.playerCharacters.put(uuid, uuids);
     }
 
-    public void save(EntityPlayer player)
+    public void save(UUID playerUUID)
     {
         List<IAddon> integrations = MultiCharacterAPI.getAddons();
+
+        EntityPlayer player = FMLServerHandler.instance().getServer().getPlayerList().getPlayerByUUID(playerUUID);
 
         for (IAddon loader : integrations)
         {
@@ -167,9 +175,11 @@ public class CharacterManager
         }
     }
 
-    public void load(EntityPlayer player)
+    public void load(UUID playerUUID)
     {
         List<IAddon> integrations = MultiCharacterAPI.getAddons();
+
+        EntityPlayer player = FMLServerHandler.instance().getServer().getPlayerList().getPlayerByUUID(playerUUID);
 
         for (IAddon loader : integrations)
         {
@@ -186,14 +196,14 @@ public class CharacterManager
     {
         List<IAddon> integrations = MultiCharacterAPI.getAddons();
 
-        this.save(player);
+        this.save(player.getUniqueID());
 
         for (IAddon loader : integrations)
         {
             loader.onDisconnect(player);
         }
 
-        for (Character c : this.getCharacters(player))
+        for (Character c : this.getCharacters(player.getUniqueID()))
         {
             this.characters.remove(c.getUniqueId());
         }

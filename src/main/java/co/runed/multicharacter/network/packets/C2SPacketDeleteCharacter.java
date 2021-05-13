@@ -53,7 +53,7 @@ public class C2SPacketDeleteCharacter implements IMessage
         {
             EntityPlayer player = ctx.getServerHandler().player;
 
-            MultiCharacterMod.getCharacterManager().removeCharacter(player, message.getCharacter());
+            MultiCharacterMod.getCharacterManager().removeCharacter(player.getUniqueID(), message.getCharacter());
             return null;
         }
     }

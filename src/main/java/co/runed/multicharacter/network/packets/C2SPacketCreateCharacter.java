@@ -49,7 +49,7 @@ public class C2SPacketCreateCharacter implements IMessage
         {
             EntityPlayer player = ctx.getServerHandler().player;
 
-            MultiCharacterMod.getCharacterManager().addCharacter(player, message.getCharacter());
+            MultiCharacterMod.getCharacterManager().addCharacter(player.getUniqueID(), message.getCharacter());
 
             return null;
         }

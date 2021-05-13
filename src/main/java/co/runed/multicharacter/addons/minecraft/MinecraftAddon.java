@@ -56,7 +56,7 @@ public class MinecraftAddon extends Addon
             // LOAD NBT INTO CHARACTER MANAGER
             characterManager.deserializeCharacters(charactersNbt);
 
-            Character activeCharacter = characterManager.getActiveCharacter(player);
+            Character activeCharacter = characterManager.getActiveCharacter(player.getUniqueID());
 
             if (activeCharacter != null)
             {
@@ -125,9 +125,9 @@ public class MinecraftAddon extends Addon
         CharacterManager characterManager = MultiCharacterMod.getCharacterManager();
         File characterDirectory = MultiCharacterAPI.getCharacterDirectory(player);
 
-        if (characterManager.getCharacters(player).size() <= 0) return;
+        if (characterManager.getCharacters(player.getUniqueID()).size() <= 0) return;
 
-        Character activeCharacter = characterManager.getActiveCharacter(player);
+        Character activeCharacter = characterManager.getActiveCharacter(player.getUniqueID());
 
         if (activeCharacter != null)
         {
@@ -147,14 +147,14 @@ public class MinecraftAddon extends Addon
         }
 
         // WRITE LIST OF CHARACTERS AS characters/characters.dat
-        NbtUtil.writeFile(characterManager.serializeCharacters(player), characterDirectory, "characters");
+        NbtUtil.writeFile(characterManager.serializeCharacters(player.getUniqueID()), characterDirectory, "characters");
     }
 
     @Override
     public void onDisconnect(EntityPlayer player)
     {
         // IF NO CHARACTERS DON'T DELETE PLAYER.DAT
-        if (MultiCharacterMod.getCharacterManager().getCharacters(player).size() <= 0) return;
+        if (MultiCharacterMod.getCharacterManager().getCharacters(player.getUniqueID()).size() <= 0) return;
 
         // DELETE PLAYER.DAT
         File playerDat = this.getExistingPlayerDatFile(player);
@@ -178,7 +178,7 @@ public class MinecraftAddon extends Addon
         playerNbt.setUniqueId("UUID", player.getUniqueID());
 
         // IF THIS IS THE FIRST CHARACTER A PLAYER CREATES, SET CHARACTER NBT TO PLAYER NBT
-        if (MultiCharacterMod.getCharacterManager().getCharacters(player).size() <= 1)
+        if (MultiCharacterMod.getCharacterManager().getCharacters(player.getUniqueID()).size() <= 1)
         {
             File playerDat = this.getExistingPlayerDatFile(player);
 

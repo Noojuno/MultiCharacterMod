@@ -19,7 +19,7 @@ public class CommandAddRole extends CommandBase
 
             EntityPlayer player = server.getPlayerList().getPlayerByUsername(playerName);
 
-            MultiCharacterMod.getCharacterManager().getActiveCharacter(player).addRole(role);
+            MultiCharacterMod.getCharacterManager().getActiveCharacter(player.getUniqueID()).addRole(role);
 
             sender.sendMessage(new TextComponentString("Role '" + role + "' has been added to " + playerName));
         }

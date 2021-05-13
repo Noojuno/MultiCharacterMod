@@ -30,7 +30,7 @@ public class C2SPacketSaveCharacters implements IMessage
         {
             EntityPlayer player = ctx.getServerHandler().player;
 
-            MultiCharacterMod.getCharacterManager().save(player);
+            MultiCharacterMod.getCharacterManager().save(player.getUniqueID());
 
             return null;
         }

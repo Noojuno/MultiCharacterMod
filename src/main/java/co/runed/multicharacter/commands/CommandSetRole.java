@@ -20,7 +20,7 @@ public class CommandSetRole extends CommandBase
 
             EntityPlayer player = server.getPlayerList().getPlayerByUsername(playerName);
 
-            MultiCharacterMod.getCharacterManager().getActiveCharacter(player).setRole(index - 1, role);
+            MultiCharacterMod.getCharacterManager().getActiveCharacter(player.getUniqueID()).setRole(index - 1, role);
 
             sender.sendMessage(new TextComponentString(playerName + "'s role has been set to '" + role + "'"));
         }

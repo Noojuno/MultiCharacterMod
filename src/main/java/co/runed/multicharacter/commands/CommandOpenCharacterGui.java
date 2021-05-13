@@ -23,7 +23,7 @@ public class CommandOpenCharacterGui extends CommandBase
             String playerName = params[0];
 
             EntityPlayerMP player = server.getPlayerList().getPlayerByUsername(playerName);
-            List<Character> characters = MultiCharacterMod.getCharacterManager().getCharacters(player);
+            List<Character> characters = MultiCharacterMod.getCharacterManager().getCharacters(player.getUniqueID());
 
             PacketDispatcher.sendTo(new S2CPacketOpenCharacterGui(characters), player);
             sender.sendMessage(new TextComponentString("Opened character selection for " + playerName));

@@ -59,7 +59,7 @@ public class C2SPacketSelectCharacter implements IMessage
             CharacterManager characterManager = MultiCharacterMod.getCharacterManager();
 
             // IF PLAYER HAS NO ACTIVE CHARACTER AND INDEX IS -1, KICK PLAYER
-            if (message.getIndex() <= -1 && characterManager.getActiveCharacter(player) == null)
+            if (message.getIndex() <= -1 && characterManager.getActiveCharacter(player.getUniqueID()) == null)
             {
                 ctx.getServerHandler().disconnect(new TextComponentString("You must select a character to play"));
                 return null;
@@ -68,7 +68,7 @@ public class C2SPacketSelectCharacter implements IMessage
             // IF VALID INDEX SET ACTIVE CHARACTER
             if (message.getIndex() >= 0)
             {
-                characterManager.setActiveCharacter(player, message.getIndex());
+                characterManager.setActiveCharacter(player.getUniqueID(), message.getIndex());
             }
 
             return null;
