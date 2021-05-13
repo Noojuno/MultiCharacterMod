@@ -17,32 +17,27 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 public class C2SPacketSelectCharacter implements IMessage
 {
     private int index;
-    private Character character;
 
     public C2SPacketSelectCharacter()
     {
 
     }
 
-    public C2SPacketSelectCharacter(int index, Character character)
+    public C2SPacketSelectCharacter(int index)
     {
         this.index = index;
-        this.character = character;
     }
 
     @Override
     public void fromBytes(ByteBuf buf)
     {
         index = buf.readInt();
-        character = new Character();
-        character.deserializeNBT(ByteBufUtils.readTag(buf));
     }
 
     @Override
     public void toBytes(ByteBuf buf)
     {
         buf.writeInt(index);
-        ByteBufUtils.writeTag(buf, character.serializeNBT());
     }
 
     public int getIndex()

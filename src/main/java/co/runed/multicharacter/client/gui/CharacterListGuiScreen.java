@@ -101,7 +101,7 @@ public class CharacterListGuiScreen extends GuiScreen
                 MinecraftClientAddon.selectedCharacter = true;
             }
 
-            PacketDispatcher.sendToServer(new C2SPacketSelectCharacter(characterIndex, characters.get(characterIndex)));
+            PacketDispatcher.sendToServer(new C2SPacketSelectCharacter(characterIndex));
         }
     }
 

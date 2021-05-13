@@ -32,22 +32,14 @@ public final class PacketDispatcher
 
     public static <R extends IMessage, RP extends IMessage> void registerPacket(Class<? extends IMessageHandler<R, RP>> messageHandler, Class<R> requestMessageType, Side side)
     {
-        registerPacket(PACKET_ID + 1, messageHandler, requestMessageType, side);
-    }
-
-    public static <R extends IMessage, RP extends IMessage> void registerPacket(int id, Class<? extends IMessageHandler<R, RP>> messageHandler, Class<R> requestMessageType, Side side)
-    {
-        id = id <= PACKET_ID ? PACKET_ID + 1 : id;
-        PACKET_ID = id;
-
         // IF ON A SERVER AND PACKET IS TO BE RUN ON CLIENT, SET HANDLER TO BLANK LAMBDA TO ALLOW USE OF CLIENT SIDE CODE IN PACKET
         if (side == Side.CLIENT && FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
         {
-            WRAPPER.registerMessage((message, ctx) -> null, requestMessageType, id, side);
+            WRAPPER.registerMessage((message, ctx) -> null, requestMessageType, PACKET_ID++, side);
             return;
         }
 
-        WRAPPER.registerMessage(messageHandler, requestMessageType, id, side);
+        WRAPPER.registerMessage(messageHandler, requestMessageType, PACKET_ID++, side);
     }
 
     public static void sendTo(IMessage message, EntityPlayerMP player)
