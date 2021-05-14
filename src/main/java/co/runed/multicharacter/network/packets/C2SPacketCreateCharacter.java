@@ -43,13 +43,12 @@ public class C2SPacketCreateCharacter implements IMessage
 
     public static class Handler implements IMessageHandler<C2SPacketCreateCharacter, IMessage>
     {
-
         @Override
         public IMessage onMessage(C2SPacketCreateCharacter message, MessageContext ctx)
         {
             EntityPlayer player = ctx.getServerHandler().player;
 
-            MultiCharacterMod.getCharacterManager().addCharacter(player.getUniqueID(), message.getCharacter());
+            MultiCharacterMod.getCharacterManager().addCharacter(player, message.getCharacter());
 
             return null;
         }

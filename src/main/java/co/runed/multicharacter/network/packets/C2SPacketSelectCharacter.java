@@ -63,7 +63,7 @@ public class C2SPacketSelectCharacter implements IMessage
             // IF VALID INDEX SET ACTIVE CHARACTER
             if (message.getIndex() >= 0)
             {
-                characterManager.setActiveCharacter(player.getUniqueID(), message.getIndex());
+                characterManager.setActiveCharacter(player, message.getIndex());
             }
 
             return null;
